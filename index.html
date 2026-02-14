@@ -10,7 +10,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 90vh;
             margin: 0;
 
             /* patterns */
@@ -25,11 +25,11 @@
         }
         h1 {
             color: #d63031;
-            font-size: 4rem;
+            font-size: 3.5rem;
             margin-bottom: 30px;
         }
         .gif-container img {
-            margin-top: -30vh;
+            margin-top: -150vh;
             width: 250px;
             border-radius: 15px;
             margin-bottom: 20px;
@@ -83,42 +83,46 @@
     <script>
         const noBtn = document.getElementById('no-btn');
         const yesBtn = document.getElementById('yes-btn');
+        let hoverCount = 0; // Starts the counter at zero
 
         noBtn.addEventListener('mouseover', () => {
+            hoverCount++; // Adds 1 to the counter every hover
+
+            // Check if she reached 5 hovers
+            if (hoverCount === 5) {
+                alert("okay if thats all you want 🥺");
+                window.location.href = 'sad.html'; // Redirect to the sad page
+                return; // Stops the rest of the code from moving the button
+            }
+
             const noBtnRect = noBtn.getBoundingClientRect();
             const yesBtnRect = yesBtn.getBoundingClientRect();
             
-            // Calculate max bounds so the button stays fully within the screen
             const maxX = window.innerWidth - noBtnRect.width;
             const maxY = window.innerHeight - noBtnRect.height;
             
             let randomX, randomY;
             let isOverlapping = true;
 
-            // This loop keeps generating new locations until it finds one that 
-            // does NOT overlap with the "Yes" button
             while (isOverlapping) {
                 randomX = Math.floor(Math.random() * maxX);
                 randomY = Math.floor(Math.random() * maxY);
 
-                // Add a 20px padding around the Yes button as a "no-go zone"
                 const padding = 20; 
                 
-                // Collision detection logic
                 if (
                     randomX < yesBtnRect.right + padding &&
                     randomX + noBtnRect.width > yesBtnRect.left - padding &&
                     randomY < yesBtnRect.bottom + padding &&
                     randomY + noBtnRect.height > yesBtnRect.top - padding
                 ) {
-                    isOverlapping = true; // It overlaps, loop again!
+                    isOverlapping = true; 
                 } else {
-                    isOverlapping = false; // Safe spot found!
+                    isOverlapping = false; 
                 }
             }
 
-            // Apply the new safe position
-            noBtn.style.position = 'fixed'; // 'fixed' ensures it stays in the visible viewport
+            noBtn.style.position = 'fixed'; 
             noBtn.style.left = `${randomX}px`;
             noBtn.style.top = `${randomY}px`;
         });
