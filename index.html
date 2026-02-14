@@ -12,18 +12,24 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #ffe6e6; 
+
+            /* patterns */
+            background-color: #ffe6e6;
+            background-image: radial-gradient(#facaca 50px, transparent 3px);
+            background-size: 150px 150px;
+
+            background-color: #ffeaea; 
             font-family: 'Arial', sans-serif;
             text-align: center;
             overflow: hidden; 
         }
         h1 {
             color: #d63031;
-            font-size: 3rem;
+            font-size: 4rem;
             margin-bottom: 30px;
         }
         .gif-container img {
-            margin-top: -15vh;
+            margin-top: -30vh;
             width: 250px;
             border-radius: 15px;
             margin-bottom: 20px;
@@ -45,7 +51,7 @@
             transition: transform 0.2s ease;
         }
         #yes-btn {
-            background-color: #ff7675;
+            background-color: #f86262;
             color: white;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             z-index: 10; /* Keeps Yes button on top just in case */
@@ -55,7 +61,7 @@
             background-color: #d63031;
         }
         #no-btn {
-            background-color: #b2bec3;
+            background-color: #616769;
             color: white;
             /* Position removed from here, handled by JS now */
         }
@@ -67,7 +73,7 @@
         <img src="https://media.tenor.com/efjiMIEOqF8AAAAi/tkthao219-bubududu.gif" alt="Cute Bears">
     </div>
 
-    <h1>Will you be my Valentine?</h1>
+    <h1>Will you be my Valentine Tannu baby?</h1>
     
     <div class="button-container">
         <button id="yes-btn" onclick="window.location.href='celebration.html'">Yes!</button>
