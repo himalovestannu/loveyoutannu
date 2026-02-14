@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine? 💖</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffe6e6; 
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            overflow: hidden; 
+        }
+        h1 {
+            color: #d63031;
+            font-size: 3rem;
+            margin-bottom: 30px;
+        }
+        .gif-container img {
+            width: 250px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px; /* Space between buttons */
+            height: 100px;
+        }
+        button {
+            font-size: 1.5rem;
+            padding: 12px 35px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+        #yes-btn {
+            background-color: #ff7675;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 10; /* Keeps Yes button on top just in case */
+        }
+        #yes-btn:hover {
+            transform: scale(1.1);
+            background-color: #d63031;
+        }
+        #no-btn {
+            background-color: #b2bec3;
+            color: white;
+            /* Position removed from here, handled by JS now */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gif-container">
+        <img src="https://media.tenor.com/efjiMIEOqF8AAAAi/tkthao219-bubududu.gif" alt="Cute Bears">
+    </div>
+
+    <h1>Will you be my Valentine?</h1>
+    
+    <div class="button-container">
+        <button id="yes-btn" onclick="window.location.href='celebration.html'">Yes!</button>
+        <button id="no-btn">No</button>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('no-btn');
+        const yesBtn = document.getElementById('yes-btn');
+
+        noBtn.addEventListener('mouseover', () => {
+            const noBtnRect = noBtn.getBoundingClientRect();
+            const yesBtnRect = yesBtn.getBoundingClientRect();
+            
+            // Calculate max bounds so the button stays fully within the screen
+            const maxX = window.innerWidth - noBtnRect.width;
+            const maxY = window.innerHeight - noBtnRect.height;
+            
+            let randomX, randomY;
+            let isOverlapping = true;
+
+            // This loop keeps generating new locations until it finds one that 
+            // does NOT overlap with the "Yes" button
+            while (isOverlapping) {
+                randomX = Math.floor(Math.random() * maxX);
+                randomY = Math.floor(Math.random() * maxY);
+
+                // Add a 20px padding around the Yes button as a "no-go zone"
+                const padding = 20; 
+                
+                // Collision detection logic
+                if (
+                    randomX < yesBtnRect.right + padding &&
+                    randomX + noBtnRect.width > yesBtnRect.left - padding &&
+                    randomY < yesBtnRect.bottom + padding &&
+                    randomY + noBtnRect.height > yesBtnRect.top - padding
+                ) {
+                    isOverlapping = true; // It overlaps, loop again!
+                } else {
+                    isOverlapping = false; // Safe spot found!
+                }
+            }
+
+            // Apply the new safe position
+            noBtn.style.position = 'fixed'; // 'fixed' ensures it stays in the visible viewport
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
+        });
+    </script>
+</body>
+</html>
